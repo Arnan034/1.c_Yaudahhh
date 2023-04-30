@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 typedef struct data{
-	int angka;
+	double angka;
 	char mathOperator;
 };
 
@@ -14,9 +14,9 @@ typedef struct calcTree{
     struct calcTree * rChild;//Right child 
 };
 
-int count(struct calcTree *root);
+double count(struct calcTree *root);
 //Method untuk menghitung total dari proses proses dalam tree
-int check(char mathExpression[], int firstIndex, int lastIndex);
+double check(char mathExpression[], int firstIndex, int lastIndex);
 //Method untuk memeriksa apakah inputan mengandung operator atau hanya angka.
 struct calcTree * makeTree(char mathExpression[], int firstIndex, int lastIndex);
 //Method untuk membuat tree
