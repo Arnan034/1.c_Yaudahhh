@@ -4,10 +4,10 @@
 #include <ctype.h>
 
 //Menu utama dari kalculator 
-void clevCalcMenu();
+void calcMenu();
 //Menu utama dari fitur kalkulator ilmiah
-void calculatorMenu();
+void displayExpression();
 //Fitur untuk menampilkan bagaimana cara menggunakan aplikasi kalkulator kami
-void aboutCalculator(); 
+void aboutCalc(); 
 //Fungsi yang dipanggil untuk menjalankan kalkulator
-void runCalculator();
+void runCalc();

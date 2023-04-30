@@ -5,10 +5,19 @@
 #include <math.h>
 #include "tree.h"
 #define MAX 0x3f3f3f3f
-
-int count(struct treeNode *root){
-    if(root->isOperator=='1'){
-        switch(root->mathOperator){
+char isOperator(struct calcTree *root){
+	char temp;
+	if(root->isi_data.mathOperator == NULL){
+		temp = '0';
+		return temp; 
+	}else{
+		temp = '1';
+		return temp;
+	}
+}
+int count(struct calcTree *root){
+    if(isOperator(root)=='1'){
+        switch(root->isi_data.mathOperator){
             case '+':{
                 return count(root->lChild)+count(root->rChild);
                 break;
@@ -30,8 +39,8 @@ int count(struct treeNode *root){
                 break;
             }
         }
-    }
-    return root->data;
+	}
+    return root->isi_data.angka;
 }
 int check(char mathExpression[],int firstIndex,int lastIndex){
     int i;
@@ -51,20 +60,20 @@ int check(char mathExpression[],int firstIndex,int lastIndex){
     }
     return sum*isOperator;
 }
-void postOrder(struct treeNode *root){
+void postOrder(struct calcTree *root){
     if(root){
         postOrder(root->lChild);
         postOrder(root->rChild);
-        if(root->isOperator == '0'){
-            printf("%d ",root->data);
+        if(isOperator(root) == '0'){
+            printf("%d ",root->isi_data.angka);
         }
         else{
-            printf("%c ",root->mathOperator);
+            printf("%c ",root->isi_data.mathOperator);
         }       
     }
 } 
-struct treeNode * makeTree(char mathExpression[],int firstIndex,int lastIndex){
-   	struct treeNode * root=(struct treeNode *)malloc(sizeof(struct treeNode));
+struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
+   	struct calcTree * root=(struct calcTree *)malloc(sizeof(struct calcTree));
     int posPlusOrSub=0;//Posisi dari operator penjumlahan (-) dan pengurangan (-) 
     int numPlusOrSub=0;//Jumlah dari operator penjumlahan(+) dan pengurangan (-) 
     int posDivOrMul=0;//Posisi dari operator perkalian(*) dan pembagian (/) 
@@ -77,9 +86,9 @@ struct treeNode * makeTree(char mathExpression[],int firstIndex,int lastIndex){
 	//Kalau hasil num yang sudah tadi masuk modul check berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
 	//Sebaliknya jika num tersebut bukan berisi dari hasil MAX, maka dia itu operand yang nantinya akan masuk ke pengkondisian atau ifnya (Fahri)    
     if(num!=MAX){
-        root->isOperator='0';
-        root->mathOperator=NULL;
-        root->data=num;
+    	//root->isOperator='0';
+        root->isi_data.mathOperator=NULL;
+        root->isi_data.angka=num;
         root->lChild=NULL;
         root->rChild=NULL;
         return root;
@@ -128,8 +137,8 @@ struct treeNode * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     else{
         return makeTree(mathExpression,firstIndex+1,lastIndex-1);
     }
-    root->isOperator='1';
-    root->mathOperator=mathExpression[pos_root];
+	//root->isOperator='1';
+    root->isi_data.mathOperator=mathExpression[pos_root];
     root->lChild = makeTree(mathExpression,firstIndex,pos_root-1);
     root->rChild = makeTree(mathExpression,pos_root+1,lastIndex);
     return root;
