@@ -52,7 +52,7 @@ void runCalc(){
 		        printf("ekspresi yang kamu masukan : %s\n",expression);
 		        struct calcTree* binaryTree=(struct calcTree *)malloc(sizeof(struct calcTree));
 		        binaryTree = makeTree(expression,0,strlen(expression)-1);
-		        printf("Hasil nya adalah : %d\n",count(binaryTree));
+		        printf("Hasil nya adalah : %f\n",count(binaryTree));
 		        tryAgain:
 		        printf("Apakah ingin mencoba lagi ? (Y/N):");
 		        scanf("%c", &cobaLagi);

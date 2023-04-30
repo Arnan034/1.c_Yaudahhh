@@ -15,7 +15,7 @@ char isOperator(struct calcTree *root){
 		return temp;
 	}
 }
-int count(struct calcTree *root){
+double count(struct calcTree *root){
     if(isOperator(root)=='1'){
         switch(root->isi_data.mathOperator){
             case '+':{
@@ -42,23 +42,34 @@ int count(struct calcTree *root){
 	}
     return root->isi_data.angka;
 }
-int check(char mathExpression[],int firstIndex,int lastIndex){
+double check(char mathExpression[],int firstIndex,int lastIndex){
     int i;
-    int sum=0;
+    double sum=0.0;
     int isOperator=1;
+    char foundDecimal='0'; //0 = false; 1 = true
+    int decimalPlaces=1;
     if(mathExpression[firstIndex]=='-'){
         isOperator=-1;
         firstIndex++;
     }
     for(i=firstIndex;i<=lastIndex;i++){
-        if(!isdigit(mathExpression[i])){
+        if(!isdigit(mathExpression[i]) && mathExpression[i]!= '.'){
 			return MAX;	
 			//Kalau masuk kesini berarti itu tandanya operator (Fahri)
 		}
-        sum=sum*10+mathExpression[i]-'0';
+		if (mathExpression[i] == '.' || foundDecimal == '1'){
+			if(foundDecimal == '0'){
+				i=i+1;
+				foundDecimal = '1';
+			} 
+			sum += (mathExpression[i]-'0') *pow(10,-1*decimalPlaces);
+			decimalPlaces++;
+		}else{
+		sum=sum*10+mathExpression[i]-'0';
         //ini merepresentasikan operandnya, kenapa gini? karena misalkan 30 atau 100, nanti hasilnya akan 30 atau 100, tidak hanya 3 saja atau 1 saja (Fahri)
-    }
-    return sum*isOperator;
+		}
+	}
+	return sum*isOperator;
 }
 void postOrder(struct calcTree *root){
     if(root){
@@ -80,7 +91,7 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     int numDivOrMul=0;//Jumlah dari operator perkalian (*) dan pembagian(/)
 	int posExp=0;//Posisi dari operator pangkat (^)
 	int numExp=0;//Jumlah operator pangkat (^)
-    int num;
+    double num;
     num=check(mathExpression,firstIndex,lastIndex);
 	//Memeriksa jika hanya angka yang menjadi input 
 	//Kalau hasil num yang sudah tadi masuk modul check berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
@@ -141,5 +152,5 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     root->isi_data.mathOperator=mathExpression[pos_root];
     root->lChild = makeTree(mathExpression,firstIndex,pos_root-1);
     root->rChild = makeTree(mathExpression,pos_root+1,lastIndex);
-    return root;
+	return root;
 }
