@@ -83,7 +83,7 @@ void postOrder(struct calcTree *root){
         }       
     }
 } 
-struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
+struct calcTree * createTree(char mathExpression[],int firstIndex,int lastIndex){
    	struct calcTree * root=(struct calcTree *)malloc(sizeof(struct calcTree));
     int posPlusOrSub=0;//Posisi dari operator penjumlahan (-) dan pengurangan (-) 
     int numPlusOrSub=0;//Jumlah dari operator penjumlahan(+) dan pengurangan (-) 
@@ -146,11 +146,11 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     }
     //Jika root tidak dapat ditemukan
     else{
-        return makeTree(mathExpression,firstIndex+1,lastIndex-1);
+        return createTree(mathExpression,firstIndex+1,lastIndex-1);
     }
 	//root->isOperator='1';
     root->isi_data.mathOperator=mathExpression[pos_root];
-    root->lChild = makeTree(mathExpression,firstIndex,pos_root-1);
-    root->rChild = makeTree(mathExpression,pos_root+1,lastIndex);
+    root->lChild = createTree(mathExpression,firstIndex,pos_root-1);
+    root->rChild = createTree(mathExpression,pos_root+1,lastIndex);
 	return root;
 }
