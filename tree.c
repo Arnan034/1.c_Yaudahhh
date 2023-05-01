@@ -42,7 +42,7 @@ double count(struct calcTree *root){
 	}
     return root->isi_data.angka;
 }
-double check(char mathExpression[],int firstIndex,int lastIndex){
+double inspectExpression(char mathExpression[],int firstIndex,int lastIndex){
     int i;
     double sum=0.0;
     int isOperator=1;
@@ -92,9 +92,9 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
 	int posExp=0;//Posisi dari operator pangkat (^)
 	int numExp=0;//Jumlah operator pangkat (^)
     double num;
-    num=check(mathExpression,firstIndex,lastIndex);
+    num=inspectExpression(mathExpression,firstIndex,lastIndex);
 	//Memeriksa jika hanya angka yang menjadi input 
-	//Kalau hasil num yang sudah tadi masuk modul check berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
+	//Kalau hasil num yang sudah tadi masuk modul inspectExpression berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
 	//Sebaliknya jika num tersebut bukan berisi dari hasil MAX, maka dia itu operand yang nantinya akan masuk ke pengkondisian atau ifnya (Fahri)    
     if(num!=MAX){
     	//root->isOperator='0';
