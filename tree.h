@@ -16,7 +16,7 @@ typedef struct calcTree{
 
 double count(struct calcTree *root);
 //Method untuk menghitung total dari proses proses dalam tree
-double check(char mathExpression[], int firstIndex, int lastIndex);
+double inspectExpression(char mathExpression[], int firstIndex, int lastIndex);
 //Method untuk memeriksa apakah inputan mengandung operator atau hanya angka.
 struct calcTree * makeTree(char mathExpression[], int firstIndex, int lastIndex);
 //Method untuk membuat tree
