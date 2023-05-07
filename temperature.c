@@ -5,16 +5,29 @@
 #include "temperature.h"
 
 void mainMenu(){
-	printf("\n------- Menu Konversi Suhu -------\n");
-    printf("1. Konversi Celcius (c) \n");
-    printf("2. Konversi Reamur (r) \n");
-    printf("3. Konversi Fahrenheit (F) \n");
-    printf("4. Konversi Kelvin (K) \n");
-    printf("5. Keluar program \n");
-    printf("------------------------------\n");
-    printf("Pilih satuan suhu awal yang ingin di konversi : ");
+	int cursorY;
+	int Choose;
+	TampilanKonversiSuhu();
+	
+	cursorY = 6;
+	do{
+		gotoxy(3,6); printf(" ");
+		gotoxy(3,6); scanf("%d", &Choose);
+		gotoxy(31,cursorY);printf("|             |            |                |            |\n");
+		gotoxy(31,cursorY+1);printf("+-------------+------------+----------------+------------+\n");
+		switch(Choose){
+			case 1 : countCelcius(cursorY); break;
+			case 2 : countReamur(cursorY);break;
+			case 3 : countFahrenheit(cursorY); break;
+			case 4 : countKelvin(cursorY);break;
+			case 99 : Choose = 99; break;
+			default : printf("Pilihan Salah\n"); cursorY -=2;
+		}
+		cursorY += 2;
+	}while(Choose != 99);
 }
 
+<<<<<<< HEAD
 void countCelcius(int CursorY){
 	float c, r, f, k;
 	gotoxy(38,CursorY); scanf("%f", &c);
@@ -22,52 +35,46 @@ void countCelcius(int CursorY){
     r = c*4/5;
     f = (c*9/5)+32;
     k = c+273.16;
-    gotoxy(46, CursorY);printf("%.2f", r);
-    gotoxy(61, CursorY);printf("%.2f", f);
-    gotoxy(75, CursorY);printf("%.2f",k);
-    printf("\n");
+    gotoxy(49, CursorY);printf("%.2f", r);
+    gotoxy(64, CursorY);printf("%.2f", f);
+    gotoxy(79, CursorY);printf("%.2f",k);
 }
 
-void countReamur(){
+void countReamur(int CursorY){
 	float c, r, f, k;
-	printf("Masukkan nilai Reamur: ");
-    scanf("%f",&r);
+	gotoxy(51, CursorY);
+	scanf("%f",&r);
     fflush(stdin);
     c = r*5/4;
     f = (r*9/4)+32;
     k = (r*5/4)+273.16;
-    printf("Nilai Reamur dalam Celcius adalah %.2f\n", c);
-    printf("Nilai Reamur dalam Fahrenheit adalah %.2f\n", f);
-    printf("Nilai Reamur dalam Kelvin adalah %.2f\n", k);
-    printf("\n");
-    
+    gotoxy(36,CursorY);printf("%.2f", c);
+    gotoxy(64, CursorY);printf("%.2f", f);
+    gotoxy(79, CursorY);printf("%.2f", k);
 }
 
-void countFahrenheit(){
+void countFahrenheit(int CursorY){
 	float c, r, f, k;
-    printf("Masukkan nilai Fahrenheit: ");
+	gotoxy(65, CursorY);
     scanf("%f", &f);
     fflush(stdin);
     c = (f*5/9)-32;
     r = (f*4/9)-32;
     k = (f-32)*5/9+273.16;
-    printf("Nilai Fahrenheit dalam Celcius adalah %.2f\n",c);
-    printf("Nilai Fahrenheit dalam Reamur adalah %.2f\n",r);
-    printf("Nilai Fahrenheit dalam Kelvin adalah %.2f\n",k);
-    printf("\n");
-    
+    gotoxy(36,CursorY);printf("%.2f",c);
+    gotoxy(49, CursorY);printf("%.2f",r);
+    gotoxy(79,CursorY);printf("%.2f",k);
 }
 
-void countKelvin(){
+void countKelvin(int CursorY){
 	float c, r, f, k;
-    printf("Masukkan nilai Kelvin: ");
-    scanf("%f", &k);
+    gotoxy(79,CursorY);
+	scanf("%f", &k);
     fflush(stdin);
     c = k-273.16;
     r = (k-273.16)*4/5;
     f = (k-273.16)*9/5+32;
-    printf("Nilai Kelvin dalam Celcius adalah %.2f\n",c);
-    printf("Nilai Kelvin dalam Reamur adalah %.2f\n",r);
-    printf("Nilai Kelvin dalam Fahrenheit adalah %.2f\n",f);
-    printf("\n");
+    gotoxy(36,CursorY);printf("%.2f",c);
+    gotoxy(49, CursorY);printf("%.2f",r);
+    gotoxy(63, CursorY);printf("%.2f",f);
 }

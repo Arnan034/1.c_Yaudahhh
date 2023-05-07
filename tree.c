@@ -4,7 +4,72 @@
 #include <ctype.h>
 #include <math.h>
 #include "tree.h"
+#include "stack.h"
 #define MAX 0x3f3f3f3f
+#define MAX_STACK_SIZE 15
+
+bool isValid(char input[]){
+	Stack* stack_braked_static;
+    
+    input[strlen(input)] = NULL;
+	stack_braked_static=make_stack();
+	for(int i = 0; i < strlen(input);i++){
+		if((isdigit(input[i]) || isOperasi(input[i]) || (input[i] == '(') || (input[i] == ')') || (input[i] == '.')) && (input[0] == '-' || !(isOperasi(input[0]) || input[0] == '.'))){
+			if(input[i] == '(' && !((i != 0 == (isOperasi(input[i-1]) || input[i-1] == '(')) && ((isOperasi(input[i+1]) && input[i+1] == '-') || input[i+1] == '(') || isdigit(input[i+1]))){
+				printf("1");
+				return false;
+			} else if(input[i] == '('){ //this is push stack but not using module because error pointer
+				push(stack_braked_static);
+			} else if((input[i] == ')') && !(isOperasi(input[i+1])) && (input[i+1] != NULL)){
+				printf("2");
+				return false;
+			} else if(input[i] == ')' && stack_braked_static->top > -1){ //this is pop stack but not using module because error pointer
+				pop(stack_braked_static);
+			}
+			if((isOperasi(input[i]) && isOperasi(input[i+1]) && isOperasi(input[i+2])) || (isOperasi(input[i]) && (isOperasi(input[i+1]) != (input[i+1] == '-')))){
+				printf("3");
+				return false;
+			}
+			if((input[i] == '/' && input[i+1] == '0')){ //pengecekan pembagian tidak boleh 0
+				int j = i+1;
+				while(j <= strlen(input)){
+					if(input[j] != '0' && isdigit(input[j])){
+						break;
+					} else if(isOperasi(input[j]) || (j == strlen(input))){
+						printf("4");
+						return false;
+					}
+					j += 1;
+				}
+			}
+			if((i == strlen(input) - 1)	&& !(isdigit(input[i]) || input[i] == ')')){
+				printf("5");
+				return false;
+			}
+		}else{
+			printf("6");
+			return false;
+		}
+	}
+	if (!(isEmpty_stack(stack_braked_static))){
+		printf("7");
+		return false;
+	}
+	printf("true");
+	return true;
+}
+
+bool isOperasi(char oper){
+	if(oper == '+' || oper == '-' || oper == '*' || oper == '/'){
+		return true;
+	}
+	return false;
+}
+double round_double(double number, int decimal_places) {
+    double multiplier = pow(10.0, decimal_places);
+    double rounded_number = roundf(number * multiplier) / multiplier;
+    return rounded_number;
+}
 char isOperator(struct calcTree *root){
 	char temp;
 	if(root->isi_data.mathOperator == NULL){
@@ -15,7 +80,7 @@ char isOperator(struct calcTree *root){
 		return temp;
 	}
 }
-int count(struct calcTree *root){
+double count(struct calcTree *root){
     if(isOperator(root)=='1'){
         switch(root->isi_data.mathOperator){
             case '+':{
@@ -42,37 +107,63 @@ int count(struct calcTree *root){
 	}
     return root->isi_data.angka;
 }
-int check(char mathExpression[],int firstIndex,int lastIndex){
+double inspectExpression(char mathExpression[],int firstIndex,int lastIndex){
     int i;
-    int sum=0;
+    double sum=0.0;
     int isOperator=1;
+    char foundDecimal='0'; //0 = false; 1 = true
+    int decimalPlaces=1;
     if(mathExpression[firstIndex]=='-'){
         isOperator=-1;
         firstIndex++;
     }
     for(i=firstIndex;i<=lastIndex;i++){
-        if(!isdigit(mathExpression[i])){
+        if(!isdigit(mathExpression[i]) && mathExpression[i]!= '.'){
 			return MAX;	
 			//Kalau masuk kesini berarti itu tandanya operator (Fahri)
 		}
-        sum=sum*10+mathExpression[i]-'0';
+		if (mathExpression[i] == '.' || foundDecimal == '1'){
+			if(foundDecimal == '0'){
+				i=i+1;
+				foundDecimal = '1';
+			} 
+			sum += (mathExpression[i]-'0') *pow(10,-1*decimalPlaces);
+			decimalPlaces++;
+		}else{
+		sum=sum*10+mathExpression[i]-'0';
         //ini merepresentasikan operandnya, kenapa gini? karena misalkan 30 atau 100, nanti hasilnya akan 30 atau 100, tidak hanya 3 saja atau 1 saja (Fahri)
-    }
-    return sum*isOperator;
+		}
+	}
+	return sum*isOperator;
 }
-void postOrder(struct calcTree *root){
+
+void infixToPostfix(struct calcTree *root){
     if(root){
-        postOrder(root->lChild);
-        postOrder(root->rChild);
+        infixToPostfix(root->lChild);
+        infixToPostfix(root->rChild);
         if(isOperator(root) == '0'){
-            printf("%d ",root->isi_data.angka);
+            printf("%f ",root->isi_data.angka);
         }
         else{
             printf("%c ",root->isi_data.mathOperator);
         }       
     }
 } 
-struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
+
+void infixToPrefix(struct calcTree *root){
+    if(root){
+        if(isOperator(root) == '0'){
+            printf("%f ",root->isi_data.angka);
+        }
+        else{
+            printf("%c ",root->isi_data.mathOperator);
+        }
+        infixToPrefix(root->lChild);
+        infixToPrefix(root->rChild);    
+    }
+}
+
+struct calcTree * createTree(char mathExpression[],int firstIndex,int lastIndex){
    	struct calcTree * root=(struct calcTree *)malloc(sizeof(struct calcTree));
     int posPlusOrSub=0;//Posisi dari operator penjumlahan (-) dan pengurangan (-) 
     int numPlusOrSub=0;//Jumlah dari operator penjumlahan(+) dan pengurangan (-) 
@@ -80,10 +171,10 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     int numDivOrMul=0;//Jumlah dari operator perkalian (*) dan pembagian(/)
 	int posExp=0;//Posisi dari operator pangkat (^)
 	int numExp=0;//Jumlah operator pangkat (^)
-    int num;
-    num=check(mathExpression,firstIndex,lastIndex);
+    double num;
+    num=inspectExpression(mathExpression,firstIndex,lastIndex);
 	//Memeriksa jika hanya angka yang menjadi input 
-	//Kalau hasil num yang sudah tadi masuk modul check berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
+	//Kalau hasil num yang sudah tadi masuk modul inspectExpression berisi nilai MAX maka dia itu operator, yang mana dia tidak adakn masuk ke pengkondisian atau if (Fahri)
 	//Sebaliknya jika num tersebut bukan berisi dari hasil MAX, maka dia itu operand yang nantinya akan masuk ke pengkondisian atau ifnya (Fahri)    
     if(num!=MAX){
     	//root->isOperator='0';
@@ -135,11 +226,11 @@ struct calcTree * makeTree(char mathExpression[],int firstIndex,int lastIndex){
     }
     //Jika root tidak dapat ditemukan
     else{
-        return makeTree(mathExpression,firstIndex+1,lastIndex-1);
+        return createTree(mathExpression,firstIndex+1,lastIndex-1);
     }
 	//root->isOperator='1';
     root->isi_data.mathOperator=mathExpression[pos_root];
-    root->lChild = makeTree(mathExpression,firstIndex,pos_root-1);
-    root->rChild = makeTree(mathExpression,pos_root+1,lastIndex);
-    return root;
+    root->lChild = createTree(mathExpression,firstIndex,pos_root-1);
+    root->rChild = createTree(mathExpression,pos_root+1,lastIndex);
+	return root;
 }
