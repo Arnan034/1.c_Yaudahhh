@@ -4,27 +4,30 @@
 #include <ctype.h>
 #include <math.h>
 #include "tree.h"
-#include "stack.h"
 #define MAX 0x3f3f3f3f
-#define MAX_STACK_SIZE 15
 
 bool isValid(char input[]){
-	Stack* stack_braked_static;
+	bool stack_braked_static[15];
+    short int top = -1;
     
     input[strlen(input)] = NULL;
-	stack_braked_static=make_stack();
+	for (int i = 0; i < 10; i++){
+		stack_braked_static[i] = false;
+	}
 	for(int i = 0; i < strlen(input);i++){
 		if((isdigit(input[i]) || isOperasi(input[i]) || (input[i] == '(') || (input[i] == ')') || (input[i] == '.')) && (input[0] == '-' || !(isOperasi(input[0]) || input[0] == '.'))){
 			if(input[i] == '(' && !((i != 0 == (isOperasi(input[i-1]) || input[i-1] == '(')) && ((isOperasi(input[i+1]) && input[i+1] == '-') || input[i+1] == '(') || isdigit(input[i+1]))){
 				printf("1");
 				return false;
 			} else if(input[i] == '('){ //this is push stack but not using module because error pointer
-				push(stack_braked_static);
+				top += 1;
+				stack_braked_static[top] = true;
 			} else if((input[i] == ')') && !(isOperasi(input[i+1])) && (input[i+1] != NULL)){
 				printf("2");
 				return false;
-			} else if(input[i] == ')' && stack_braked_static->top > -1){ //this is pop stack but not using module because error pointer
-				pop(stack_braked_static);
+			} else if(input[i] == ')' && top > -1){ //this is pop stack but not using module because error pointer
+				stack_braked_static[top] = false;
+				top -= 1;
 			}
 			if((isOperasi(input[i]) && isOperasi(input[i+1]) && isOperasi(input[i+2])) || (isOperasi(input[i]) && (isOperasi(input[i+1]) != (input[i+1] == '-')))){
 				printf("3");
@@ -51,7 +54,7 @@ bool isValid(char input[]){
 			return false;
 		}
 	}
-	if (!(isEmpty_stack(stack_braked_static))){
+	if (!(top == -1 && stack_braked_static[0] == false)){
 		printf("7");
 		return false;
 	}
