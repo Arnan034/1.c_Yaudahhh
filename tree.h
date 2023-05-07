@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "stack.h"
 
 typedef struct data{
 	double angka;
