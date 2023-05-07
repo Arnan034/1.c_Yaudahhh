@@ -55,8 +55,8 @@ void runCalc(){
 			        struct calcTree* binaryTree=(struct calcTree *)malloc(sizeof(struct calcTree));
 			        binaryTree = createTree(expression,0,strlen(expression)-1);
 			        printf("Hasil nya adalah : %f",count(binaryTree));
-			        printf("\nHasil pembulatan 2 angka dibelakang koma : %0.2f", round_float(count(binaryTree), 2));
-			        printf("\nHasil pembulatan 1 angka dibelakang koma : %0.1f", round_float(count(binaryTree), 1));
+			        printf("\nHasil pembulatan 2 angka dibelakang koma : %0.2f", round_double(count(binaryTree), 2));
+			        printf("\nHasil pembulatan 1 angka dibelakang koma : %0.1f", round_double(count(binaryTree), 1));
 			        printf("\ninfixToPostfix : ");
 			        infixToPostfix(binaryTree);
 			        printf("\ninfixToPrefix : ");

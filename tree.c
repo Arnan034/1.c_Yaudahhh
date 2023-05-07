@@ -4,30 +4,27 @@
 #include <ctype.h>
 #include <math.h>
 #include "tree.h"
+#include "stack.h"
 #define MAX 0x3f3f3f3f
+#define MAX_STACK_SIZE 15
 
 bool isValid(char input[]){
-	bool stack_braked_static[15];
-    short int top = -1;
+	Stack* stack_braked_static;
     
     input[strlen(input)] = NULL;
-	for (int i = 0; i < 10; i++){
-		stack_braked_static[i] = false;
-	}
+	stack_braked_static=make_stack();
 	for(int i = 0; i < strlen(input);i++){
 		if((isdigit(input[i]) || isOperasi(input[i]) || (input[i] == '(') || (input[i] == ')') || (input[i] == '.')) && (input[0] == '-' || !(isOperasi(input[0]) || input[0] == '.'))){
 			if(input[i] == '(' && !((i != 0 == (isOperasi(input[i-1]) || input[i-1] == '(')) && ((isOperasi(input[i+1]) && input[i+1] == '-') || input[i+1] == '(') || isdigit(input[i+1]))){
 				printf("1");
 				return false;
 			} else if(input[i] == '('){ //this is push stack but not using module because error pointer
-				top += 1;
-				stack_braked_static[top] = true;
+				push(stack_braked_static);
 			} else if((input[i] == ')') && !(isOperasi(input[i+1])) && (input[i+1] != NULL)){
 				printf("2");
 				return false;
-			} else if(input[i] == ')' && top > -1){ //this is pop stack but not using module because error pointer
-				stack_braked_static[top] = false;
-				top -= 1;
+			} else if(input[i] == ')' && stack_braked_static->top > -1){ //this is pop stack but not using module because error pointer
+				pop(stack_braked_static);
 			}
 			if((isOperasi(input[i]) && isOperasi(input[i+1]) && isOperasi(input[i+2])) || (isOperasi(input[i]) && (isOperasi(input[i+1]) != (input[i+1] == '-')))){
 				printf("3");
@@ -54,7 +51,7 @@ bool isValid(char input[]){
 			return false;
 		}
 	}
-	if (!(top == -1 && stack_braked_static[0] == false)){
+	if (!(isEmpty_stack(stack_braked_static))){
 		printf("7");
 		return false;
 	}
@@ -68,9 +65,9 @@ bool isOperasi(char oper){
 	}
 	return false;
 }
-float round_float(float number, int decimal_places) {
-    float multiplier = pow(10.0, decimal_places);
-    float rounded_number = roundf(number * multiplier) / multiplier;
+double round_double(double number, int decimal_places) {
+    double multiplier = pow(10.0, decimal_places);
+    double rounded_number = roundf(number * multiplier) / multiplier;
     return rounded_number;
 }
 char isOperator(struct calcTree *root){
