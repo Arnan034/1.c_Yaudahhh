@@ -15,17 +15,16 @@ void mainMenu(){
     printf("Pilih satuan suhu awal yang ingin di konversi : ");
 }
 
-void countCelcius(){
+void countCelcius(int CursorY){
 	float c, r, f, k;
-	printf("Masukkan nilai Celcius: ");
-    scanf("%f", &c);
+	gotoxy(38,CursorY); scanf("%f", &c);
     fflush(stdin);
     r = c*4/5;
     f = (c*9/5)+32;
     k = c+273.16;
-    printf("Celsius dalam Reamur adalah %.2f\n", r);
-    printf("Celcius dalam Fahrenheit adalah %.2f\n", f);
-    printf("Celcius dalam Kelvin adalah %.2f\n",k);
+    gotoxy(46, CursorY);printf("%.2f", r);
+    gotoxy(61, CursorY);printf("%.2f", f);
+    gotoxy(75, CursorY);printf("%.2f",k);
     printf("\n");
 }
 
