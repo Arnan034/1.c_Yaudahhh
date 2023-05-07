@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "tree.h"
 #include "temperature.h"
+#include <stdbool.h>
 
 void calcMenu(){
 	printf("\n------- Menu Aplikasi ClevCalc -------\n");
@@ -49,10 +50,21 @@ void runCalc(){
 		        displayExpression();
 		        scanf("%s",expression);
 		        fflush(stdin);
-		        printf("ekspresi yang kamu masukan : %s\n",expression);
-		        struct calcTree* binaryTree=(struct calcTree *)malloc(sizeof(struct calcTree));
-		        binaryTree = createTree(expression,0,strlen(expression)-1);
-		        printf("Hasil nya adalah : %f\n",count(binaryTree));
+		        if(isValid(expression)){
+   			        printf("ekspresi yang kamu masukan : %s\n",expression);
+			        struct calcTree* binaryTree=(struct calcTree *)malloc(sizeof(struct calcTree));
+			        binaryTree = createTree(expression,0,strlen(expression)-1);
+			        printf("Hasil nya adalah : %f",count(binaryTree));
+			        printf("\nHasil pembulatan 2 angka dibelakang koma : %0.2f", round_float(count(binaryTree), 2));
+			        printf("\nHasil pembulatan 1 angka dibelakang koma : %0.1f", round_float(count(binaryTree), 1));
+			        printf("\ninfixToPostfix : ");
+			        infixToPostfix(binaryTree);
+			        printf("\ninfixToPrefix : ");
+			        infixToPrefix(binaryTree);
+			        printf("\n");
+				}else{
+					printf("\nEkspresi matematika yang Anda masukkan salah, mohon coba inputkan lagi...\n");
+				}
 		        tryAgain:
 		        printf("Apakah ingin mencoba lagi ? (Y/N):");
 		        scanf("%c", &cobaLagi);
