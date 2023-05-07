@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include "stack.h"
 
 typedef struct data{
 	double angka;
@@ -23,7 +24,7 @@ struct calcTree * createTree(char mathExpression[], int firstIndex, int lastInde
 //Function untuk membuat tree
 char isOperator(struct calcTree *root);
 //Function untuk mengecek operator atau bukan
-float round_float(float number, int decimal_places);
+double round_double(double number, int decimal_places);
 //Function untuk membulatkan hasil perhitungan
 bool isOperasi(char oper);
 //Mengecek kesesuaian suatu operator

@@ -16,7 +16,7 @@ void mainMenu(){
 }
 
 void countCelcius(){
-	float c, r, f, k;
+	double c, r, f, k;
 	printf("Masukkan nilai Celcius: ");
     scanf("%f", &c);
     fflush(stdin);
@@ -30,7 +30,7 @@ void countCelcius(){
 }
 
 void countReamur(){
-	float c, r, f, k;
+	double c, r, f, k;
 	printf("Masukkan nilai Reamur: ");
     scanf("%f",&r);
     fflush(stdin);
@@ -45,7 +45,7 @@ void countReamur(){
 }
 
 void countFahrenheit(){
-	float c, r, f, k;
+	double c, r, f, k;
     printf("Masukkan nilai Fahrenheit: ");
     scanf("%f", &f);
     fflush(stdin);
@@ -60,7 +60,7 @@ void countFahrenheit(){
 }
 
 void countKelvin(){
-	float c, r, f, k;
+	double c, r, f, k;
     printf("Masukkan nilai Kelvin: ");
     scanf("%f", &k);
     fflush(stdin);
