@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 typedef struct data{
 	double angka;
@@ -15,10 +16,16 @@ typedef struct calcTree{
 };
 
 double count(struct calcTree *root);
-//Method untuk menghitung total dari proses proses dalam tree
+//Function untuk menghitung total dari proses proses dalam tree
 double inspectExpression(char mathExpression[], int firstIndex, int lastIndex);
-//Method untuk memeriksa apakah inputan mengandung operator atau hanya angka.
+//Function untuk memeriksa apakah inputan mengandung operator atau hanya angka.
 struct calcTree * createTree(char mathExpression[], int firstIndex, int lastIndex);
-//Method untuk membuat tree
+//Function untuk membuat tree
 char isOperator(struct calcTree *root);
-//Method untuk mengecek opetator atau bukan
+//Function untuk mengecek operator atau bukan
+float round_float(float number, int decimal_places);
+//Function untuk membulatkan hasil perhitungan
+bool isOperasi(char oper);
+//Mengecek kesesuaian suatu operator
+bool isValid(char input[]);
+//Function ini untuk mengecek apakah operasi yang di inputkan valid atau tidak.
