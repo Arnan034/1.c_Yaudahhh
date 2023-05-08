@@ -18,7 +18,7 @@ void TampilanKonversiSuhu(){
 }
 	
 
-void mainMenu(){
+void mainMenuTemp(){
 	int cursorY;
 	int Choose;
 	system("cls");
