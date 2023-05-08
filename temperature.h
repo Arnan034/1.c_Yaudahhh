@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 void TampilanKonversiSuhu();
-void mainMenu();
+void mainMenuTemp();
 void countCelcius();
 void countReamur();
 void countKelvin();
