@@ -4,9 +4,24 @@
 #include <ctype.h>
 #include "temperature.h"
 
+void TampilanKonversiSuhu(){
+	printf("Konversi Suhu\n");
+	printf("1. Celcius (C)\n");
+	printf("2. Reamur (R)\n");
+	printf("3. Farennheit (F)\n");
+	printf("4. Kelvin (K)\n");
+	printf("99. Keluar\n");
+	printf(" : ");
+	gotoxy(31,3);printf("+-------------+------------+----------------+------------+\n");
+	gotoxy(31,4);printf("| Celcius (C) | Reamur (R) | Fahrenheit (F) | Kelvin (K) |\n");
+	gotoxy(31,5);printf("+-------------+------------+----------------+------------+\n");
+}
+	
+
 void mainMenu(){
 	int cursorY;
 	int Choose;
+	system("cls");
 	TampilanKonversiSuhu();
 	
 	cursorY = 6;
@@ -27,7 +42,7 @@ void mainMenu(){
 	}while(Choose != 99);
 }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 void countCelcius(int CursorY){
 	float c, r, f, k;
 	gotoxy(38,CursorY); scanf("%f", &c);

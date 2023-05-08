@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+void TampilanKonversiSuhu();
 void mainMenu();
 void countCelcius();
 void countReamur();
