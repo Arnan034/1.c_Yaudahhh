@@ -6,10 +6,11 @@
 
 void gotoxy(int x, int y);
 //Menu utama dari kalculator 
-void TampilanKalkulator();
-//Fitur untuk menampilkan bagaimana cara menggunakan aplikasi kalkulator kami
-void TampilanBatasanProgram(); 
-//Fungsi yang dipanggil untuk menjalankan kalkulator
-void runCalc();
-
 void TampilanMainMenu();
+//Menu utama dari fitur kalkulator ilmiah
+void TampilanKalkulator();
+//Menampilkan tampilan untuk menginputkan ekspresi matematika
+void TampilanBatasanProgram(); 
+//Menampilkan batasan program kalkulator
+void runCalc();
+//Untuk memilih menu kalkulator yang diinginkan

@@ -40,6 +40,7 @@ void mainMenuTemp(){
 		}
 		cursorY += 2;
 	}while(Choose != 99);
+	system("cls");
 }
 
 //<<<<<<< HEAD

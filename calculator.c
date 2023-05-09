@@ -27,7 +27,7 @@ void TampilanMainMenu(){
 	gotoxy(41,14);printf("1. Calculator                 Choose\n");
 	gotoxy(41,15);printf("2. Batasan Program         +----------+    \n");
 	gotoxy(41,16);printf("3. Konversi Suhu           |          |\n");
-	gotoxy(41,17);printf("99. Exit                   +----------+    \n");
+	gotoxy(41,17);printf("4. Exit                   +----------+    \n");
 }
 void TampilanKalkulator(){
 	gotoxy(40,3);printf(" _________________________________________\n");
@@ -81,9 +81,10 @@ void runCalc(){
 	AppMenu:
 	TampilanMainMenu();
 	gotoxy(73,16);
+	fflush(stdin);
 	scanf("%c",&pil);
     fflush(stdin);
-    if(isdigit(pil) != 0){
+    if(isdigit(pil) != 0 && (pil == '1' || pil == '2' || pil == '3' || pil == '4')){
 		    if(pil=='1'){
 		        char expression[200];
 		        displayexpression:
@@ -127,19 +128,20 @@ void runCalc(){
 				}
 			}
 			else if(pil=='3'){
-				mainMenu();
+				mainMenuTemp();
 				goto AppMenu;
 			}
 			else if(pil=='2'){
+				system("cls");
 				TampilanBatasanProgram();
 				system("cls");
 				goto AppMenu;
 			}
 			else if(pil=='4'){
-			printf("Terimakasih Telah Menggunakan ClevCalc");
-			return 0;;	
+			printf("\n\n\n\n\n\n\nTerimakasih Telah Menggunakan ClevCalc");
+			return 0;
 			}
-	}else {
+	}else{
 		gotoxy(34,19); printf("Maaf, perintah yang Anda masukkan tidak dapat diproses.");
 		gotoxy(24,20); printf("Mohon untuk memilih menu dengan angka yang sesuai dengan opsi yang tersedia.");
 		gotoxy(55,21); printf("Terima kasih.");
