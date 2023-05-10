@@ -14,3 +14,5 @@ void TampilanBatasanProgram();
 //Menampilkan batasan program kalkulator
 void runCalc();
 //Untuk memilih menu kalkulator yang diinginkan
+void aboutCalculator();
+//Menampilkan cara penggunaan calculator
