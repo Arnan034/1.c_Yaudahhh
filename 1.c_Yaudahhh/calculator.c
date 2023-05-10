@@ -27,7 +27,8 @@ void TampilanMainMenu(){
 	gotoxy(41,14);printf("1. Calculator                 Choose\n");
 	gotoxy(41,15);printf("2. Batasan Program         +----------+    \n");
 	gotoxy(41,16);printf("3. Konversi Suhu           |          |\n");
-	gotoxy(41,17);printf("4. Exit                   +----------+    \n");
+	gotoxy(41,17);printf("4. Cara penggunaan         |          |    \n");
+	gotoxy(41,18);printf("5. Exit                    +----------+    \n");
 }
 void TampilanKalkulator(){
 	gotoxy(40,3);printf(" _________________________________________\n");
@@ -75,6 +76,21 @@ void TampilanBatasanProgram(){
 	gotoxy(21,18);printf("+------------------------------------------------------------------------------+\n");
 	gotoxy(21,20);system("pause");
 }
+void aboutCalculator(){
+	char rules[255];
+	FILE *in=fopen("howto.txt","r");//perintah untuk membuka file dengan mode r / read
+	system("cls");
+	printf("\n");
+    while(!feof(in)){
+        fscanf(in,"%[^\n]\n", &rules);fflush(stdin);   
+        // %[^\n] artinya kita menyimpan bagian dari string dalam file sampai tanda \n atau newline. 
+        // Kita tidak menggunnakan %s karena aturan mengandung spasi
+        printf("%s\n", rules);
+    }
+	fclose(in);//perintah untuk menutup file yang tadi dibuka
+	printf("\nTekan tombol apapun untuk kembali ke menu utama.....");
+	getch();
+}
 void runCalc(){
 	char pil;
 	char cobaLagi;
@@ -84,7 +100,7 @@ void runCalc(){
 	fflush(stdin);
 	scanf("%c",&pil);
     fflush(stdin);
-    if(isdigit(pil) != 0 && (pil == '1' || pil == '2' || pil == '3' || pil == '4')){
+    if(isdigit(pil) != 0 && (pil == '1' || pil == '2' || pil == '3' || pil == '4'|| pil =='5')){
 		    if(pil=='1'){
 		        char expression[200];
 		        displayexpression:
@@ -138,8 +154,14 @@ void runCalc(){
 				goto AppMenu;
 			}
 			else if(pil=='4'){
-			printf("\n\n\n\n\n\n\nTerimakasih Telah Menggunakan ClevCalc");
-			return 0;
+				aboutCalculator();
+				system("cls");
+				goto AppMenu;
+				return 0;
+			}
+			else if(pil=='5'){
+				printf("\n\n\n\n\n\n\nTerimakasih Telah Menggunakan ClevCalc");
+				return 0;
 			}
 	}else{
 		gotoxy(34,19); printf("Maaf, perintah yang Anda masukkan tidak dapat diproses.");
