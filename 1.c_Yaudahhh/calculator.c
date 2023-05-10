@@ -92,16 +92,16 @@ void aboutCalculator(){
 	getch();
 }
 void runCalc(){
-	char pil;
+	short int pil;
 	char cobaLagi;
 	AppMenu:
 	TampilanMainMenu();
 	gotoxy(73,16);
 	fflush(stdin);
-	scanf("%c",&pil);
+	scanf("%d",&pil);
     fflush(stdin);
-    if(isdigit(pil) != 0 && (pil == '1' || pil == '2' || pil == '3' || pil == '4'|| pil =='5')){
-		    if(pil=='1'){
+    if((pil == 1 || pil == 2 || pil == 3 || pil == 4|| pil ==5)){
+		    if(pil==1){
 		        char expression[200];
 		        displayexpression:
 		        system("cls");
@@ -143,23 +143,23 @@ void runCalc(){
 					goto tryAgain;
 				}
 			}
-			else if(pil=='3'){
+			else if(pil==3){
 				mainMenuTemp();
 				goto AppMenu;
 			}
-			else if(pil=='2'){
+			else if(pil==2){
 				system("cls");
 				TampilanBatasanProgram();
 				system("cls");
 				goto AppMenu;
 			}
-			else if(pil=='4'){
+			else if(pil==4){
 				aboutCalculator();
 				system("cls");
 				goto AppMenu;
 				return 0;
 			}
-			else if(pil=='5'){
+			else if(pil==5){
 				printf("\n\n\n\n\n\n\nTerimakasih Telah Menggunakan ClevCalc");
 				return 0;
 			}
