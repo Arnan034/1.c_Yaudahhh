@@ -127,10 +127,12 @@ void runCalc(){
 		        fflush(stdin);
 		        if(cobaLagi =='Y'||cobaLagi=='y'){
 		        	system("cls");
+		        	pil=0;
 		        	goto displayexpression;
 				}
 				else if(cobaLagi =='N'||cobaLagi=='n'){
 					system("cls");
+					pil=0;
 					goto AppMenu;
 				}
 				else{
@@ -140,22 +142,26 @@ void runCalc(){
 					printf("Mohon untuk memasukkan sesuai dengan instruksi.");
 					gotoxy(55,32);
 					printf("Terima kasih.");
+					pil=0;
 					goto tryAgain;
 				}
 			}
 			else if(pil==3){
 				mainMenuTemp();
+				pil=0;
 				goto AppMenu;
 			}
 			else if(pil==2){
 				system("cls");
 				TampilanBatasanProgram();
 				system("cls");
+				pil=0;
 				goto AppMenu;
 			}
 			else if(pil==4){
 				aboutCalculator();
 				system("cls");
+				pil=0;
 				goto AppMenu;
 				return 0;
 			}
@@ -167,6 +173,7 @@ void runCalc(){
 		gotoxy(34,19); printf("Maaf, perintah yang Anda masukkan tidak dapat diproses.");
 		gotoxy(24,20); printf("Mohon untuk memilih menu dengan angka yang sesuai dengan opsi yang tersedia.");
 		gotoxy(55,21); printf("Terima kasih.");
+		pil=0;
 		goto AppMenu;
 	}
 }
