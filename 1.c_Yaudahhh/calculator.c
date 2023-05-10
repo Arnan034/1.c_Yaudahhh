@@ -136,11 +136,11 @@ void runCalc(){
 					goto AppMenu;
 				}
 				else{
-					gotoxy(38,30);
+					gotoxy(38,33);
 					printf("Maaf, perintah yang Anda masukkan tidak dapat diproses.");
-					gotoxy(42,31);
+					gotoxy(42,34);
 					printf("Mohon untuk memasukkan sesuai dengan instruksi.");
-					gotoxy(55,32);
+					gotoxy(55,35);
 					printf("Terima kasih.");
 					pil=0;
 					goto tryAgain;
