@@ -20,7 +20,7 @@ void TampilanMainMenu(){
     gotoxy(27,23); printf("Original Works By");
     gotoxy(23,24); printf("Dafa Nurul Fauziansyah &");
     gotoxy(25,25); printf("Hanri Fajar Ramadhan");
-    gotoxy(71,23); printf("Updated By Kelompok Yaudahh 1B");
+    gotoxy(71,23); printf("Modified By Kelompok Yaudahh 1B");
     gotoxy(72,24); printf("Arnanda Prasatya (221524034)");
     gotoxy(66,25); printf("Jeihan Ilham Kusumawardhana (221524042)");
     gotoxy(65,26); printf("Muhammad Fahri Yuwan Dwi Putra (221524047)");
