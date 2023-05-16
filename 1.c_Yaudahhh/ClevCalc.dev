@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0
-UnitCount=7
+UnitCount=9
 
 [VersionInfo]
 Major=1
@@ -121,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=..\..\Referensi\Binary-Tree-Calculator-master\Stack.c
+FileName=StackDinamis.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -131,7 +131,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=..\..\Referensi\Binary-Tree-Calculator-master\Stack.h
+FileName=StackDinamis.h
 CompileCpp=0
 Folder=
 Compile=1

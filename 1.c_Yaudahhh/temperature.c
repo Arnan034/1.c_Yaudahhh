@@ -26,8 +26,9 @@ void mainMenuTemp(){
 	
 	cursorY = 6;
 	do{
+		gotoxy(8,2);printf("               ");
 		gotoxy(3,6); printf(" ");
-		gotoxy(3,6); scanf("%d", &Choose);
+		gotoxy(3,6); scanf("%d", &Choose);fflush(stdin);
 		gotoxy(31,cursorY);printf("|             |            |                |            |\n");
 		gotoxy(31,cursorY+1);printf("+-------------+------------+----------------+------------+\n");
 		switch(Choose){
@@ -36,7 +37,7 @@ void mainMenuTemp(){
 			case 3 : countFahrenheit(cursorY); break;
 			case 4 : countKelvin(cursorY);break;
 			case 99 : Choose = 99; break;
-			default : printf("Pilihan Salah\n"); cursorY -=2;
+			default : gotoxy(2,8);printf("Pilihan Salah\n"); cursorY -=2;
 		}
 		cursorY += 2;
 	}while(Choose != 99);
@@ -74,8 +75,8 @@ void countFahrenheit(int CursorY){
 	gotoxy(65, CursorY);
     scanf("%f", &f);
     fflush(stdin);
-    c = (f*5/9)-32;
-    r = (f*4/9)-32;
+    c = (f-32)*5/9;
+    r = (f-32)*4/9;
     k = (f-32)*5/9+273.16;
     gotoxy(36,CursorY);printf("%.2f",c);
     gotoxy(49, CursorY);printf("%.2f",r);
